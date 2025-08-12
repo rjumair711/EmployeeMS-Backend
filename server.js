@@ -10,17 +10,19 @@ import leaveRouter from './routes/leave.js';
 import settingRouter from './routes/setting.js';
 import dashboardRouter from './routes/dashboard.js';
 
+dotenv.config();
+
 const app = express();
+
 app.use(cors({
     origin: "https://employee-ms-frontend-lyart.vercel.app",
     credentials: true
-}))
-app.use(express.json())
-dotenv.config();
+}));
+app.use(express.json());
+
 connectToDatabase();
 
-
-app.use(express.static('public/uploads'))
+app.use(express.static('public/uploads'));
 
 app.use('/api/auth', authRouter);
 app.use('/api/department', depRouter);
@@ -30,8 +32,7 @@ app.use('/api/leave', leaveRouter);
 app.use('/api/setting', settingRouter);
 app.use('/api/dashboard', dashboardRouter);
 
+// **Remove app.listen**
+// Vercel runs your app as serverless function
 
-
-app.listen(process.env.PORT, () => {
-    console.log('Server is running on PORT')
-})
+export default app;
