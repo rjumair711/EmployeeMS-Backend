@@ -14,10 +14,7 @@ dotenv.config();
 
 const app = express();
 
-app.use(cors({
-    origin: "https://employee-ms-frontend-lyart.vercel.app",
-    credentials: true
-}));
+app.use(cors());
 app.use(express.json());
 
 connectToDatabase();
@@ -34,5 +31,8 @@ app.use('/api/dashboard', dashboardRouter);
 
 // **Remove app.listen**
 // Vercel runs your app as serverless function
+app.listen(process.env.PORT, (req, res) => {
+    console.log("Server is running")
+})
 
 export default app;
